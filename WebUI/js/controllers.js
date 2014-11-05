@@ -1,10 +1,20 @@
-var addressBookControllers = angular.module('addressBookControllers', []);
+var addressBookControllers = angular.module('addressBookControllers', ['ngTable']);
 
-addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', '$location', 'addresses', 'addressById',
-    function($scope, $rootScope, $location, addresses, addressById) { 
+addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', '$location', 'addresses', 'addressById', 'ngTableParams',
+    function ($scope, $rootScope, $location, addresses, addressById, ngTableParams) { 
 
         $scope.loadAddresses = function() {
             $scope.addresses = addresses.listAll();
+
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 100           // count per page
+            }, {
+                total: $scope.addresses.length, // length of data
+                getData: function($defer, params) {
+                    $defer.resolve($scope.addresses.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
         };
 
         $scope.openAddress = function(address) {

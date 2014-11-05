@@ -1,7 +1,7 @@
 <div class="col-md-12 main">
 	<button class="btn btn-primary" ng-click="createAddress()">Create address</button>
-	<table ng-table class="table">
-		<tr ng-repeat="address in addresses">
+	<table ng-table="tableParams" class="table">
+		<tr ng-repeat="address in $data">
 			<td data-title="'First name'"><a ng-click="openAddress(address)">{{address.firstName}}</a></td>
 			<td data-title="'Last name'"><a ng-click="openAddress(address)">{{address.lastName}}</a></td>
 			<td data-title="'Email address'"><a ng-click="openAddress(address)">{{address.email}}</a></td>
