@@ -1,0 +1,10 @@
+.validation-help {
+    margin: 5px 0 0 5px;
+    display: block;
+    color: #B94A48;
+    clear: left;
+}
+
+.short-input-field {
+	max-width: 200px;
+}

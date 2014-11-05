@@ -3,25 +3,25 @@
 	    <div class="col-sm-2">First name</div>
 	    <div class="col-sm-10">
 	        <input name="firstName" class="form-control" type="text" ng-model="editContainer.firstName" data-required />
-	        <span ng-show="editContainer.firstName.$error.required" class="validation-help">Required</span>
+	        <span ng-show="addressForm.firstName.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Last name</div>
 	    <div class="col-sm-10">
 	        <input name="lastName" class="form-control" type="text" ng-model="editContainer.lastName" data-required />
-	        <span ng-show="editContainer.lastName.$error.required" class="validation-help">Required</span>
+	        <span ng-show="addressForm.lastName.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Email address</div>
 	    <div class="col-sm-10">
 	        <input name="email" class="form-control" type="text" ng-model="editContainer.email" data-required />
-	        <span ng-show="editContainer.email.$error.required" class="validation-help">Required</span>
+	        <span ng-show="addressForm.email.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Phone number</div>
 	    <div class="col-sm-10">
 	        <input name="phoneNumber" class="form-control" type="text" ng-model="editContainer.phoneNumber" data-required />
-	        <span ng-show="editContainer.phoneNumber.$error.required" class="validation-help">Required</span>
+	        <span ng-show="addressForm.phoneNumber.$error.required" class="validation-error">Required</span>
 	    </div>
 	</form>
 	<button class="btn btn-primary" ng-disabled="!addressForm.$valid" ng-click="save()">Save</button>
