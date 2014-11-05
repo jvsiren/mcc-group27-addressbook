@@ -30,6 +30,7 @@ addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', '$
             var indexOfAddress = _.indexOf($scope.addresses, address);
             addressById.delete({id: address._id}, function (callback) {
                 $scope.addresses.splice(indexOfAddress, 1);
+		$scope.tableParams.reload();
             });
         };
 
