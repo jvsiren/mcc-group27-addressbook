@@ -4,7 +4,7 @@ services.factory('addresses', ['$resource', function($resource) {
     return $resource('api/addresses', {}, {
         listAll: {
             method: 'GET',
-	    isArray: true
+	    	isArray: true
         },
         create: {
             method: 'POST'
