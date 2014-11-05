@@ -1,22 +1,15 @@
 var addressBookControllers = angular.module('addressBookControllers', []);
 
-addressBookControllers.controller('addressBookCtrl', ['$scope', '$rootScope', 
-    function($scope, $rootScope) {
-	
-	$scope.test = 'Hi!';
-	$scope.addresses = ['addr1', 'addr2', 'addr3'];	
-}]);
+addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', 'addresses',
+    function($scope, $rootScope, addresses) {        
+        $scope.addresses = addresses.listAll();
+    }
+]);
 
-addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope',
-    function($scope, $rootScope) {
+addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$routeParams', 'addressById',
+    function($scope, $rootScope, $routeParams, addressById) {
 
-        $scope.test = 'Hi!';
-        $scope.addresses = ['addr1', 'addr2', 'addr3'];
-}]);
-
-addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope',
-    function($scope, $rootScope) {
-
-        $scope.test = 'Hi!';
-        $scope.address = {name: "Juha", email: "juha.siren@aalto.fi"}
-}]);
+        $scope.selectedAddressId = $routeParams.id;
+        $scope.address = addressById.find({id: $scope.selectedAddressId});
+    }
+]);
