@@ -2,7 +2,7 @@ var app = angular.module('mccgroup27App', [
 	'addressBookControllers',
 	'addressBookServices',
   	'toaster',
-	'ngAnimate'
+	'ngRoute'
 ]).run(['$rootScope', 'toaster', function($rootScope, toaster) {
 
 	$rootScope.showNotification = function(notificationType, title, message) {
