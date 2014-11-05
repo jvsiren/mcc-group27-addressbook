@@ -11,6 +11,6 @@
        "errorhandler": "*"
     },
     "scripts": {
-       "start": "node server.js"
+       "start": "node app.js"
     }
 }
