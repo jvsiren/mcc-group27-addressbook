@@ -30,7 +30,9 @@ exports.findById = function(collectionName, id, res) {
 
 exports.create = function(collectionName, object, res) {
   db.collection(collectionName).insert(object, function(error, result) {
-    queryResultCallback(res, error, result);
+    // Insert returns array instead of object for some reason.
+    // We want to return the id of the object only.
+    queryResultCallback(res, error, result[0]._id);
   });
 };
 
