@@ -2,25 +2,25 @@
 	<form name="addressForm">
 	    <div class="col-sm-2">First name</div>
 	    <div class="col-sm-10">
-	        <input name="firstName" class="form-control" type="text" ng-model="editContainer.firstName" data-required />
+	        <input name="firstName" class="form-control short-input-field" type="text" ng-model="editContainer.firstName" data-required />
 	        <span ng-show="addressForm.firstName.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Last name</div>
 	    <div class="col-sm-10">
-	        <input name="lastName" class="form-control" type="text" ng-model="editContainer.lastName" data-required />
+	        <input name="lastName" class="form-control short-input-field" type="text" ng-model="editContainer.lastName" data-required />
 	        <span ng-show="addressForm.lastName.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Email address</div>
 	    <div class="col-sm-10">
-	        <input name="email" class="form-control" type="text" ng-model="editContainer.email" data-required />
+	        <input name="email" class="form-control short-input-field" type="text" ng-model="editContainer.email" data-required />
 	        <span ng-show="addressForm.email.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Phone number</div>
 	    <div class="col-sm-10">
-	        <input name="phoneNumber" class="form-control" type="text" ng-model="editContainer.phoneNumber" data-required />
+	        <input name="phoneNumber" class="form-control short-input-field" type="text" ng-model="editContainer.phoneNumber" data-required />
 	        <span ng-show="addressForm.phoneNumber.$error.required" class="validation-error">Required</span>
 	    </div>
 	</form>
