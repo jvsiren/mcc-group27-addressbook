@@ -24,6 +24,8 @@
 	        <span ng-show="addressForm.phoneNumber.$error.required" class="validation-error">Required</span>
 	    </div>
 	</form>
-	<button class="btn btn-primary" ng-disabled="!addressForm.$valid" ng-click="save()">Save</button>
-    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+	<div class="col-sm-12">
+		<button class="btn btn-primary" ng-disabled="!addressForm.$valid" ng-click="save()">Save</button>
+	    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+	</div>
 </div>

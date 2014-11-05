@@ -8,3 +8,8 @@
 .short-input-field {
 	max-width: 200px;
 }
+
+.separator {
+	clear:both;
+	height: 25px;
+}
