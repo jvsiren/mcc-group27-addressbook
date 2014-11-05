@@ -4,17 +4,18 @@ addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', '$
     function ($scope, $rootScope, $location, addresses, addressById, ngTableParams) { 
 
         $scope.loadAddresses = function() {
-            $scope.addresses = addresses.listAll();
-
-            $scope.tableParams = new ngTableParams({
-                page: 1,            // show first page
-                count: 100           // count per page
-            }, {
-                total: $scope.addresses.length, // length of data
-                getData: function($defer, params) {
-                    $defer.resolve($scope.addresses.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            });
+            addresses.listAll(function (addresses) {
+                $scope.addresses = addresses;
+                $scope.tableParams = new ngTableParams({
+                    page: 1,            // show first page
+                    count: 100           // count per page
+                }, {
+                    total: addresses.length, // length of data
+                    getData: function($defer, params) {
+                        $defer.resolve(addresses.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                });
+            });            
         };
 
         $scope.openAddress = function(address) {
