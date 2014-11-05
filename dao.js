@@ -5,8 +5,13 @@ var queryResultCallback = function(res, error, result) {
   if(error) {
     console.log(error);
     res.sendStatus(400);
-  } else {
-    res.send(JSON.stringify(result));
+  } 
+  else {
+    var resultString = result;
+    if(typeof resultString !== "string") {
+      resultString = JSON.stringify(result);
+    }
+    res.send(resultString);
   }
 };
 
@@ -32,7 +37,8 @@ exports.create = function(collectionName, object, res) {
   db.collection(collectionName).insert(object, function(error, result) {
     // Insert returns array instead of object for some reason.
     // We want to return the id of the object only.
-    queryResultCallback(res, error, result[0]._id);
+    var returnObject = {id: result[0]._id};
+    queryResultCallback(res, error, returnObject);
   });
 };
 

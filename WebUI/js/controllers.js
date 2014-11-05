@@ -86,8 +86,8 @@ addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$
         };
 
         function saveCreate() {
-            addresses.create($scope.editContainer, function (addressId) {
-                $location.path('addresses/' + addressId);
+            addresses.create($scope.editContainer, function (address) {
+                $location.path('addresses/' + address.id);
             });
         };
 
