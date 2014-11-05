@@ -26,7 +26,7 @@ app.config(['$routeProvider', '$locationProvider',
                 controller: 'addressListCtrl'
             })
             .when('/addresses/:id', {
-                templateUrl: 'partials/addressView.html',
+                templateUrl: 'partials/address.html',
                 controller: 'addressViewCtrl'
             })
             .otherwise({

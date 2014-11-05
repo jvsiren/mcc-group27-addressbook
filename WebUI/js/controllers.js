@@ -43,32 +43,59 @@ addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$
 
         if($scope.selectedAddressId === 'create') {
             $scope.viewMode = 'create';
-            $scope.address = {};
+            $scope.editContainer = {};
         } else {
             $scope.address = addressById.find({id: $scope.selectedAddressId});            
         }
 
+        $scope.showView = function() {
+            return isMode('view');
+        };
+
+        $scope.showForm = function() {
+            return isMode('edit') || isMode('create');
+        };
 
         $scope.edit = function() {
             $scope.editContainer = angular.copy($scope.address);
             $scope.viewMode = 'edit';
         };
 
-        $scope.saveEdit = function() {
+        $scope.save = function() {
+            if(isMode('edit')) {
+                saveEdit();
+            } else {
+                saveCreate();
+            }
+        };
+
+        $scope.cancel = function() {
+            if(isMode('edit')) {
+                $scope.viewMode = 'view';
+            } else {
+                $scope.returnToAddressList();
+            }
+        };
+
+        function saveEdit() {
             addressById.edit({id: $scope.selectedAddressId}, $scope.editContainer, function (callback) {
                 $scope.viewMode = 'view';
                 $scope.address = $scope.editContainer;
             });
         };
 
-        $scope.saveCreate = function() {
-            addresses.create($scope.address, function (address) {
+        function saveCreate() {
+            addresses.create($scope.editContainer, function (address) {
                 $location.path('addresses/' + address._id);
             });
         };
 
         $scope.returnToAddressList = function() {
             $location.path('/addresses');
+        };
+
+        function isMode(mode) {
+            return $scope.viewMode === mode;
         };
     }
 ]);
