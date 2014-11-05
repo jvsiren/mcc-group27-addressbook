@@ -1,0 +1,16 @@
+{
+    "name": "mccgroup27",
+    "description": "Mobile Cloud Computing assignment solution for Group 27",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+       "express": "~4.9.0",
+       "mongoskin": "*",
+       "forever": "*",
+       "body-parser": "*",
+       "errorhandler": "*"
+    },
+    "scripts": {
+       "start": "node server.js"
+    }
+}

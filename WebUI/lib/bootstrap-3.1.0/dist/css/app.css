@@ -1,0 +1,406 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+body
+{
+	background-color: #FEFEFE; /* #F7F7F7;*/
+}
+.dropdown.navbar-left .navbar-toggle {
+	float: left;
+	margin-left: 0 !important;
+}
+.navbar-toggle
+{
+	float: none;
+	display: inline;
+	margin-right: 0px;
+	border-color: #385691 !important;
+	color: #FFF;
+	padding: 7px 8px;
+}
+
+.user .navbar-toggle
+{
+	border: none;
+	margin-left: 5px;
+}
+.navbar-toggle:hover,
+.navbar-toggle:focus
+{
+	background-color: #385691 !important;
+}
+
+.user > li {
+    float: left;
+    display: block;
+    position: relative;
+    padding: 15px;
+}
+.user a
+{
+	color: #999999;
+}
+.user a:hover,
+.user a:focus
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.navbar-header
+{
+	float: none;
+	
+}
+.user .navbar-toggle:hover,
+.user .navbar-toggle:focus
+{
+		color: #FFFFFF;
+	}
+
+.navbar
+{
+	background-color: #444444;/*#415F9B;*/
+	border-bottom: 1px solid #133783;
+}
+.badge
+{
+	background-color: #FFFFFF !important;
+	color: #AD5F4E !important;
+}
+#logo
+{
+	position: absolute;
+	top: 11px;
+	left: 50%;
+	margin-left: -52px;
+}
+
+.search-results
+{
+	height: auto;
+	position: fixed;
+	width: 100%;
+	background: #FFFFFF;
+	z-index: 1001;
+	border-bottom: 1px solid #ccc;
+	top: 90px;
+}
+.search-results ul
+{
+	list-style: none;
+	padding: 10px 50px 15px 30px;
+}
+
+.sidebar
+{
+	background-color: #FFFFFF;
+}
+
+.navbar li.dropdown {
+	height: 0px;
+	list-style: none
+}
+#search-results
+{
+
+}
+.user-menu
+{
+	margin-left: 5px;
+}
+
+.ngViewport
+{
+	height: auto !important;
+}
+.ngHeaderContainer
+{
+	overflow: visible !important;
+}
+
+.related-actions-trigger
+{
+	display:block;
+	float: right;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 8px;
+	background-color: #FFFFFF;
+	border: 1px solid #EDE593;
+}
+
+.modal-header .btn
+{
+	float: right;
+}
+h1 {
+	margin-top: 0;
+	
+}
+
+
+
+.ngCell, .ndCellText, .ngViewport
+{
+	overflow: visible !important;
+}
+
+/* Employee view */
+.imgContainer {
+	margin: 0 auto;
+    display: block;
+    border: 1px solid #DDD;
+    background-color: #FFF;
+    -webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border-radius: 150px;
+	padding: 10px;
+	width: 172px;
+	/*box-shadow: 0px 10px 50px -10px rgba(221,221,221,1);*/
+}
+.employeeImage
+{
+	border: 1px solid #FBC05A;
+    -webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border-radius: 150px;
+        
+}
+.businessTitle {
+	color: #555555;
+}
+.margin-top {
+	margin-top: 20px;
+}
+.icon {
+	float: left;
+}
+.empInfoLine {
+	margin-bottom: 5px;
+	min-height: 30px;
+}
+.empInfo {
+	margin-top: 30px;
+}
+.empInfo p {
+	margin:0 0 0 40px;
+	color: #777777;
+	line-height: 35px;
+}
+.empInfo .glyphicon {
+	border: 1px solid #FBC05A;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border-radius: 150px;
+	padding: 8px;
+	color: #1C5D93;
+}
+.topGrey {
+	position: absolute;
+	background-color: #F4F4F4;
+	height: 100px;
+	width: 100%;
+	border-bottom: 1px solid #DDD;
+}
+/*
+.employee-tabs .col-md-12 > div{
+	border-top: 1px solid #EEE;
+	padding-top: 10px;
+	padding-bottom: 0px;
+}
+*/
+.employee-tabs h3 {
+	border-bottom: 1px solid #EEEEEE;
+}
+
+/* Employee Tabs */
+.nav-tabs {
+	
+}
+.nav-tabs li.active a {
+	font-weight: bold;
+	color: #1C5D93;
+	margin-top: 0;
+	/*padding-top: 11px;*/
+}
+.nav-tabs li a {
+	padding: 5px 15px;
+	color: #777777;
+	/*margin-top: 6px;*/
+}
+.nav-tabs li a:hover {
+	color: #1C5D93 !important;
+	background: none;
+}
+.employee-tabs-sub {
+   margin: -30px 0 -30px;
+}
+.employee-tabs-sub ul {
+    padding-bottom: 1px;
+    border-bottom: 1px solid #DDDDDD;
+}
+.employee-tabs-sub a{
+   border: none !important;
+}
+.employee-tabs-sub li.active,
+.employee-tabs-sub li.active a,
+.employee-tabs-sub li.active span:hover,
+.employee-tabs-sub li.active span:focus,
+.employee-tabs-sub li.active a:hover,
+.employee-tabs-sub li.active a:focus{
+   color: #222222 !important;
+   font-weight: normal;
+}
+
+/* Employee Edit */
+.employeePage.edit .imgContainer {
+	margin: 0 10px 0 0;
+	float: left;    
+	padding: 5px;
+	width: 72px;
+}
+.employeeEditContainer .header{
+	padding: 0px !important;
+	
+	border-top: none;
+}
+.employeeEditContainer .header h3 {
+	background: #F4F4F4;
+	padding: 10px 15px;
+	margin: 0;
+}
+
+.employeeEditContainer h3{
+	padding-top: 15px;	
+}
+.employeeEditContainer > div{
+	border-top: 1px solid #DDD;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+.editComp {
+	padding: 0;
+}
+.employeeEditContainer .col-md-2 {
+	color: #777777;
+}
+.employeeEditConfirmation {
+	margin-top: 40px;
+	background: #EEEEEE;
+	padding: 20px;
+}
+.employeeEditConfirmation textarea{
+	width: 100%;
+}
+
+
+.popover .arrow:after
+{
+	border-width: 11px;
+}
+
+
+/* Pay Run */
+.tab-badge {
+	background: #428BCA !important;
+	color: #FFFFFF !important;
+}
+.tab-content {
+	margin-top: 30px;
+}
+
+
+.pay-run-home span,
+.employee-tabs .form-group span 
+{
+	top: 7px;
+	position: relative;
+}
+
+
+
+
+
+
+/*.navbar
+{
+	background-image: linear-gradient(to bottom, #563D7C 0px, #6F5499 100%);
+	background-color: #6F5499;
+}
+*/
+@media (max-width: 767px)
+{
+	body {
+    	padding-top: 100px;
+	}
+	.navbar {
+		height: 90px;
+	}
+	.dropdown.navbar-left {	
+		width: 100%;
+		padding: 0 15px;
+		margin-top: 40px;
+		 border: none !important;
+	}	
+	.dropdown.navbar-left .navbar-toggle {
+		float: left;
+		margin-left: 0;
+	}
+	.navbar-form {	  
+	   margin-left: 30px;
+	}
+	.navbar-form input {
+	   height: 28px;
+	}
+	
+	.navbar-right {
+		float: right;
+    	right: 15px;
+    	top: -95px;
+	}
+	#logo {
+		left: 15px;
+		margin-left: 0;
+	}
+	
+	.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+		border: none !important;
+		box-shadow: none;
+	}
+	.main {
+		margin-top: 40px;
+	}
+	.employeeImage {
+		display: none;
+	}
+	
+	.tab-header {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.form-control {
+		margin-left: 5px;
+    	height: 28px;
+	}
+	.navbar-form {
+	    border: none !important;
+    	display: inline;
+	    left: 40px;
+	    position: absolute;
+    	top: 1px;
+	    width: auto;
+	    padding-left: 0;
+	}
+}
+@media (max-width: 320px) {
+	.user-name {
+		display: none;
+	}
+	.user .navbar-toggle {
+    padding: 7px 10px;
+    margin-left: 0px;
+	}
+	
+}
