@@ -45,6 +45,7 @@ addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$
             $scope.viewMode = 'create';
             $scope.editContainer = {};
         } else {
+            $scope.viewMode = 'view';
             $scope.address = addressById.find({id: $scope.selectedAddressId});            
         }
 
