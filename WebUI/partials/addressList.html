@@ -1,16 +1,12 @@
 <div class="col-md-12 main">
-	<table ng-table>
-		<tr>
-			<th>First name</th>
-			<th>Last name</th>
-			<th>Email address</th>
-			<th>Phone number</th>
-		</tr>
+	<button ng-click="createAddress()">Create address</td>
+	<table ng-table class="table">
 		<tr ng-repeat="address in addresses">
-			<td><a ng-click="openAddress(address)">address.firstName</a></td>
-			<td><a ng-click="openAddress(address)">address.lastName</a></td>
-			<td><a ng-click="openAddress(address)">address.email</a></td>
-			<td><a ng-click="openAddress(address)">address.phone</a></td>
+			<td data-title="First name"><a ng-click="openAddress(address)">{{address.firstName}}</a></td>
+			<td data-title="Last name"><a ng-click="openAddress(address)">{{address.lastName}}</a></td>
+			<td data-title="Email address"><a ng-click="openAddress(address)">{{address.email}}</a></td>
+			<td data-title="Phone number"><a ng-click="openAddress(address)">{{address.phone}}</a></td>
+			<td><button ng-click="deleteAddress(address)">Delete</button></td>
 		</tr>
 	</table>
 </div>
