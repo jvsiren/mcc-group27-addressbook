@@ -44,7 +44,6 @@ function setAccessToken(authorizationCode, callback) {
       if(!err) {
         oauth2Client.setCredentials(tokens);
         accessToken = tokens.access_token;
-        console.log(accessToken);
     		contacts = new GoogleContacts({token: accessToken});
     		callback();
       }
@@ -90,10 +89,9 @@ function redirectToContactList(res) {
 function exportContacts(res) {
   contacts.getContacts(function (error, allGoogleContacts) {
     dao.findAll(collectionName, {}, function (allContacts) {
-      var contacts = getContactsThatDontExistInGoogle(allContacts, allGoogleContacts);
-      console.log(JSON.stringify(contacts));
-      for(var i = 0; i < contacts.length; i++) {
-        createContactInGoogleContacts(contacts[i]);
+      var contactsToCreate = getContactsThatDontExistInGoogle(allContacts, allGoogleContacts);
+      for(var i = 0; i < contactsToCreate.length; i++) {
+        createContactInGoogleContacts(contactsToCreate[i]);
       }
     });
     redirectToContactList(res);
@@ -103,7 +101,7 @@ function exportContacts(res) {
 function getContactsThatDontExistInGoogle(contacts, googleContacts) {
   return _.filter(contacts, function (contact) {
       var existingGoogleContact = _.find(googleContacts, function (googleContact) {
-        googleContact.email === contact.email;
+        return googleContact.email === contact.email;
       });
       return existingGoogleContact == undefined;
   });
@@ -120,7 +118,5 @@ function createContactInGoogleContacts(contact) {
       'Content-Type': 'application/atom+xml'
     }
   };
-  request.post(requestOptions, function (error, response, body) {
-    console.log(JSON.stringify(response));
-  });
+  request.post(requestOptions);
 };
