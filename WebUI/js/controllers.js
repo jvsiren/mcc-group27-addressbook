@@ -26,7 +26,7 @@ addressBookControllers.controller('contactListCtrl', ['$scope', '$rootScope', '$
             $location.path('/contacts/create')
         };
 
-        $scope.deleteContacts = function(contact) {
+        $scope.deleteContact = function(contact) {
             var indexOfContact = _.indexOf($scope.contacts, contact);
             contactById.delete({id: contact._id}, function (callback) {
                 $scope.contacts.splice(indexOfContact, 1);
