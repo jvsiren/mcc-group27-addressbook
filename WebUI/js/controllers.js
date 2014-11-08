@@ -35,7 +35,7 @@ addressBookControllers.controller('contactListCtrl', ['$scope', '$rootScope', '$
         };
 
         $scope.importGoogleContacts = '/api/google/import';
-        $scope.importGoogleContacts = '/api/google/export';
+        $scope.exportGoogleContacts = '/api/google/export';
 
         $scope.loadContacts();
     }

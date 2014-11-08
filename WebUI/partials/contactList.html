@@ -1,8 +1,8 @@
 <div class="col-md-12 main">
 	<div class="col-md-12">
 		<button class="btn btn-primary" ng-click="createContact()">Create contact</button>
-		<a class="btn btn-primary" ng-href="importGoogleContacts">Import from Google contacts</a>
-		<a class="btn btn-primary" ng-href="exportGoogleContacts">Export to Google contacts</a>
+		<a class="btn btn-primary" ng-href="{{importGoogleContacts}}">Import from Google contacts</a>
+		<a class="btn btn-primary" ng-href="{{exportGoogleContacts}}">Export to Google contacts</a>
 	</div>
 	<table ng-table="tableParams" class="table">
 		<tr ng-repeat="contact in $data">
