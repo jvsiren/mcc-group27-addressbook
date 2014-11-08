@@ -6,6 +6,8 @@ var REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/oauth2callback';
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 var GoogleContacts = require('google-contacts').GoogleContacts;
 var contacts;
+var dao = require('./dao');
+var collectionName = 'addresses';
 
 var url = oauth2Client.generateAuthUrl({
   access_type: 'offline', 
@@ -13,34 +15,59 @@ var url = oauth2Client.generateAuthUrl({
 });
 
 exports.requestImportContacts = function(req, res) {
-	console.log("Request import contacts");
-	console.log(oauth2Client.credentials);
-	res.redirect(url);
+	if(contacts) {
+		importContacts(res);
+	} else {
+		console.log(url);
+		res.redirect(url);		
+	}
 };
 
 exports.oauthCallback = function(req, res) {
-	setAccessToken(req.query.code, function() { importContacts(res) });
+	setAccessToken(req.query.code, function() { 
+		importContacts(res); 
+	});
 };
 
 function setAccessToken(authorizationCode, callback) {
-	console.log(authorizationCode);
     oauth2Client.getToken(authorizationCode, function (err, tokens) {
       // Now tokens contains an access_token and an optional refresh_token. Save them.
       if(!err) {
         oauth2Client.setCredentials(tokens);
-        console.log(tokens);
-		contacts = new GoogleContacts({token: tokens});
-        console.log(contacts);
+		contacts = new GoogleContacts({token: tokens.access_token});
 		callback();
       }
     });
 }
 
 function importContacts(res) {
-	console.log("importContacts");
-    contacts.on('contactsReceived', function (contacts) {
-    	res.send(JSON.stringify(contacts));
-    })
-    contacts.getContacts();
+    contacts.getContacts(function (error, contacts) {
+    	for(var i = 0; i < contacts.length; i++) {
+    		var contact = contacts[i];
+    		var existingContact = findAddressByEmail(contact.email);
+    		if(existingContact) {
+    			replaceExistingContact(existingContact, contact);
+    		} else {
+    			createNewContact(contact);
+    		}
+    	}
+    	redirectToContactList(res);
+    });
+};
+
+function findAddressByEmail(email) {
+	return dao.findOne(collectionName, {email: email});
+};
+
+function replaceExistingContact(existingContact, newContact) {
+	dao.update(collectionName, existingContact._id, newContact);
+};
+
+function createNewContact(newContact) {
+	dao.create(collectionName, newContact);
+};
+
+function redirectToContactList(res) {
+	res.redirect('http://mccgroup27.ddns.net:8080');
 };
 
