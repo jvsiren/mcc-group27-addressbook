@@ -1,5 +1,5 @@
 #!/bin/sh
-
+rm nohup.out
 PID=`ps -ef | grep "node server.js" | head -n 1 |  cut -d' ' -f4`
 if [ -z "$PID" ]; then 
 PID=`ps -ef | grep "node server.js" | head -n 1 |  cut -d' ' -f5`

@@ -4,7 +4,7 @@ var OAuth2Client = google.auth.OAuth2;
 
 var CLIENT_ID = '709847374314-ovdqsjq54bj4llbpr219rrg55dt1alop.apps.googleusercontent.com';
 var CLIENT_SECRET = '06KY_8EFUBsQvg_KceLvdI4T';
-var REDIRECT_URL = 'http://mccgroup27.ddns.net/api/google/oauth2callback';
+var REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/oauth2callback';
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 // generate a url that asks permissions for Google+ and Google Calendar scopes
