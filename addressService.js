@@ -10,7 +10,6 @@ var sendResponse = function(result, res) {
     res.send(resultString);    
   } 
   else {
-  	console.log(error);
     res.sendStatus(400);    
   }
 };
