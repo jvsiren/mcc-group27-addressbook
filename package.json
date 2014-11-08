@@ -10,7 +10,8 @@
        "body-parser": "*",
        "errorhandler": "*",
        "googleapis": "*",
-       "google-contacts": "*"
+       "google-contacts": "*",
+       "request": "*"
     },
     "scripts": {
        "start": "node app.js"

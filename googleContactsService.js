@@ -10,6 +10,8 @@ var GoogleContacts = require('google-contacts').GoogleContacts;
 var contacts;
 var dao = require('./dao');
 var collectionName = 'contacts';
+var request = require('request');
+var contactXml = require('./contactXML');
 
 var importUrl = createUrl(oauth2ClientImport);
 var exportUrl = createUrl(oauth2ClientExport);
@@ -90,7 +92,27 @@ function redirectToContactList(res) {
 
 function exportContacts(res) {
   dao.findAll(collectionName, {}, function (allContacts) {
-    
+    for(var i = 0; i < allContacts.length; i++) {
+      sendContactToGoogle(allContacts[i]);
+    }
   });
   redirectToContactList(res);
-}
+};
+
+function sendContactToGoogle(contact) {
+  var postBody = contactXml.generateXML(contact);
+  var requestOptions = {
+    url: 'https://www.google.com/m8/feeds/contacts/default/full',
+    body: postBody,
+    headers: {
+      'Authorization': 'OAuth ya29.uAB46yDuo46pnuS3tzaW1iuin33MidKY1S_FZt3npLSDRClh6hGzybtnCNGuLD4UJ8CCQm_AO9kpTw'
+      'GData-Version': '3.0'
+    }
+  };
+  request.post(requestOptions, function (error, response, body) {
+    console.log("Error: " + error);
+    console.log("Response: " + response);
+    console.log("Body: " + body);
+  });
+
+};
