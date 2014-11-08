@@ -91,6 +91,7 @@ function exportContacts(res) {
   contacts.getContacts(function (error, allGoogleContacts) {
     dao.findAll(collectionName, {}, function (allContacts) {
       var contacts = getContactsThatDontExistInGoogle(allContacts, allGoogleContacts);
+      console.log(JSON.stringify(contacts));
       for(var i = 0; i < contacts.length; i++) {
         createContactInGoogleContacts(contacts[i]);
       }
@@ -99,7 +100,7 @@ function exportContacts(res) {
   });
 };
 
-function getContactsThatDontExistInGoogle(contats, googleContacts) {
+function getContactsThatDontExistInGoogle(contacts, googleContacts) {
   return _.filter(contacts, function (contact) {
       var existingGoogleContact = _.find(googleContacts, function (googleContact) {
         googleContact.email === contact.email;
