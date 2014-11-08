@@ -1,6 +1,6 @@
 var google = require('googleapis');
 var plus = google.plus('v1');
-var OAuth2 = google.auth.OAuth2;
+var OAuth2Client = google.auth.OAuth2;
 
 var CLIENT_ID = '709847374314-ovdqsjq54bj4llbpr219rrg55dt1alop.apps.googleusercontent.com';
 var CLIENT_SECRET = '06KY_8EFUBsQvg_KceLvdI4T';
