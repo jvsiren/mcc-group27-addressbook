@@ -55,7 +55,7 @@ function importContacts(res) {
 };
 
 function updateOrCreateContact(contact) {
-	dao.findOne(collectionName, {email: email}, function (existingContact) {    
+	dao.findOne(collectionName, {email: contact.email}, function (existingContact) {    
     if(existingContact) {
       replaceExistingContact(existingContact, contact);
     } else {
