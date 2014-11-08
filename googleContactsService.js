@@ -19,7 +19,7 @@ exports.requestImportContacts = function(req, res) {
 };
 
 exports.oauthCallback = function(req, res) {
-	setAccessToken(req.query.code, importContacts(res));
+	setAccessToken(req.query.code, function() { importContacts(res) });
 };
 
 function setAccessToken(authorizationCode, callback) {
@@ -31,7 +31,7 @@ function setAccessToken(authorizationCode, callback) {
         console.log(tokens);
 		contacts = new GoogleContacts({token: tokens});
         console.log(contacts);
-	callback();
+		callback();
       }
     });
 }
