@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var addressService = require('./addressService');
+var googleContactsService = require('./googleContactsService');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 
@@ -17,6 +18,10 @@ app.post('/api/addresses/query', addressService.findAddressesByQuery);
 app.post('/api/addresses', addressService.createAddress);
 app.post('/api/addresses/:id', addressService.modifyAddress);
 app.delete('/api/addresses/:id', addressService.deleteAddress);
+
+// Google contacts requests
+app.get('/api/oauth2callback', googleContactsService.setAuthToken);
+app.get('/api/google/import', googleContactsService.importContacts);
 
 var port = 8080;
 app.listen(port);
