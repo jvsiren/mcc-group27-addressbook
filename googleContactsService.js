@@ -101,15 +101,15 @@ function sendContactToGoogle(contact) {
     url: 'https://www.google.com/m8/feeds/contacts/default/full',
     body: postBody,
     headers: {
-      //'Authorization': 'OAuth ya29.uAB46yDuo46pnuS3tzaW1iuin33MidKY1S_FZt3npLSDRClh6hGzybtnCNGuLD4UJ8CCQm_AO9kpTw',
-      'Authorization': accessToken,
-      'GData-Version': '3.0'
+      'Authorization': 'OAuth ' + accessToken,
+      'GData-Version': '3.0',
+      'Content-Type': 'application/atom+xml'
     }
   };
   request.post(requestOptions, function (error, response, body) {
-    console.log("Error: " + error);
-    console.log("Response: " + response);
-    console.log("Body: " + body);
+    //console.log("Error: " + error);
+    console.log(JSON.stringify(response));
+    //console.log("Body: " + body);
   });
 
 };
