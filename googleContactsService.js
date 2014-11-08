@@ -1,21 +1,15 @@
-var google = require('googleapis');
-var plus = google.plus('v1');
-var OAuth2Client = google.auth.OAuth2;
-
+var googleapis = require('googleapis');
+var OAuth2Client = googleapis.auth.OAuth2;
 var CLIENT_ID = '709847374314-ovdqsjq54bj4llbpr219rrg55dt1alop.apps.googleusercontent.com';
 var CLIENT_SECRET = '06KY_8EFUBsQvg_KceLvdI4T';
 var REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/oauth2callback';
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-
-// generate a url that asks permissions for Google+ and Google Calendar scopes
-var scopes = [
-  'https://www.googleapis.com/auth/plus.me',
-  'https://www.googleapis.com/auth/calendar'
-];
+var GoogleContacts = require('googlecontacts').GoogleContacts;
+var contacts;
 
 var url = oauth2Client.generateAuthUrl({
-  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-  scope: scopes // If you only need one scope you can pass it as string
+  access_type: 'offline', 
+  scope: 'https://www.googleapis.com/auth/contacts'
 });
 
 exports.requestImportContacts = function(req, res) {
@@ -26,21 +20,29 @@ exports.requestImportContacts = function(req, res) {
 
 exports.oauthCallback = function(req, res) {
 	console.log(req);
-	importContacts(req, res);
+	setAccessToken(req.params.code);
+	importContacts(res);
 };
 
-function importContacts(req, res) {
+function setAccessToken(authorizationCode) {
+	console.log(authorizationCode);
+    oauth2Client.getToken(authorizationCode, function (err, tokens) {
+      // Now tokens contains an access_token and an optional refresh_token. Save them.
+      if(!err) {
+        oauth2Client.setCredentials(tokens);
+        console.log(tokens);
+		contacts = new GoogleContacts({token: tokens});
+        console.log(contacts);
+        return tokens;
+      }
+    });
+}
+
+function importContacts(res) {
 	console.log("importContacts");
-        console.log(req.params);
-        var code = req.params.code;
-        oauth2Client.getToken(code, function(err, tokens) {
-          // Now tokens contains an access_token and an optional refresh_token. Save them.
-          if(!err) {
-            oauth2Client.setCredentials(tokens);
-          }
-        });
-	plus.people.get({userId: 'kukkakeppi@gmail.com', auth: oauth2Client}, function (err, profile) {
-	    res.send(JSON.stringify({error: err, profile: profile}));
-	});
+    contacts.on('contactsReceived', function (contacts) {
+    	res.send(JSON.stringify(contacts));
+    })
+    contacts.getContacts();
 };
 
