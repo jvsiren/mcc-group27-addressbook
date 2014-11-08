@@ -20,7 +20,7 @@ app.post('/api/addresses/:id', addressService.modifyAddress);
 app.delete('/api/addresses/:id', addressService.deleteAddress);
 
 // Google contacts requests
-app.get('/api/google/importConfirmed', googleContactsService.importContacts);
+app.get('/api/google/oauth2callback', googleContactsService.oauthCallback);
 app.get('/api/google/import', googleContactsService.requestImportContacts);
 
 var port = 8080;
