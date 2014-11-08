@@ -44,19 +44,20 @@ function importContacts(res) {
     contacts.getContacts(function (error, contacts) {
     	for(var i = 0; i < contacts.length; i++) {
     		var contact = contacts[i];
-    		var existingContact = findAddressByEmail(contact.email);
-    		if(existingContact) {
-    			replaceExistingContact(existingContact, contact);
-    		} else {
-    			createNewContact(contact);
-    		}
+        updateOrCreateContact(contact);    		
     	}
     	redirectToContactList(res);
     });
 };
 
-function findAddressByEmail(email) {
-	return dao.findOne(collectionName, {email: email});
+function updateOrCreateContact(contact) {
+	dao.findOne(collectionName, {email: email}, function (existingContact) {    
+    if(existingContact) {
+      replaceExistingContact(existingContact, contact);
+    } else {
+      createNewContact(contact);
+    }
+  });
 };
 
 function replaceExistingContact(existingContact, newContact) {
