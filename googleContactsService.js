@@ -4,7 +4,7 @@ var CLIENT_ID = '709847374314-ovdqsjq54bj4llbpr219rrg55dt1alop.apps.googleuserco
 var CLIENT_SECRET = '06KY_8EFUBsQvg_KceLvdI4T';
 var REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/oauth2callback';
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-var GoogleContacts = require('googlecontacts').GoogleContacts;
+var GoogleContacts = require('google-contacts').GoogleContacts;
 var contacts;
 
 var url = oauth2Client.generateAuthUrl({
@@ -19,12 +19,10 @@ exports.requestImportContacts = function(req, res) {
 };
 
 exports.oauthCallback = function(req, res) {
-	console.log(req);
-	setAccessToken(req.params.code);
-	importContacts(res);
+	setAccessToken(req.query.code, importContacts(res));
 };
 
-function setAccessToken(authorizationCode) {
+function setAccessToken(authorizationCode, callback) {
 	console.log(authorizationCode);
     oauth2Client.getToken(authorizationCode, function (err, tokens) {
       // Now tokens contains an access_token and an optional refresh_token. Save them.
@@ -33,7 +31,7 @@ function setAccessToken(authorizationCode) {
         console.log(tokens);
 		contacts = new GoogleContacts({token: tokens});
         console.log(contacts);
-        return tokens;
+	callback();
       }
     });
 }
