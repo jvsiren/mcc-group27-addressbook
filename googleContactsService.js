@@ -100,7 +100,7 @@ function exportContacts(res) {
 };
 
 function getContactsThatDontExistInGoogle(contats, googleContacts) {
-  _.filter(contacts, function (contact) {
+  return _.filter(contacts, function (contact) {
       var existingGoogleContact = _.find(googleContacts, function (googleContact) {
         googleContact.email === contact.email;
       });
