@@ -42,11 +42,15 @@ function setAccessToken(authorizationCode, callback) {
 
 function importContacts(res) {
     contacts.getContacts(function (error, contacts) {
-    	for(var i = 0; i < contacts.length; i++) {
-    		var contact = contacts[i];
-        updateOrCreateContact(contact);    		
-    	}
-    	redirectToContactList(res);
+      if(contacts) {
+        for(var i = 0; i < contacts.length; i++) {
+          var contact = contacts[i];
+          updateOrCreateContact(contact);       
+        }      
+      } else {
+        console.log("ERROR: " + error);
+      }
+      redirectToContactList(res);  
     });
 };
 
