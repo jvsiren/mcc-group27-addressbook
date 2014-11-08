@@ -10,6 +10,7 @@ var dao = require('./dao');
 var collectionName = 'contacts';
 var request = require('request');
 var contactXml = require('./contactXML');
+var _ = require('underscore');
 
 var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', 
