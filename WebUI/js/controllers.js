@@ -1,54 +1,57 @@
 var addressBookControllers = angular.module('addressBookControllers', ['ngTable']);
 
-addressBookControllers.controller('addressListCtrl', ['$scope', '$rootScope', '$location', 'addresses', 'addressById', 'ngTableParams',
-    function ($scope, $rootScope, $location, addresses, addressById, ngTableParams) { 
+addressBookControllers.controller('contactListCtrl', ['$scope', '$rootScope', '$location', 'contacts', 'contactById', 'ngTableParams',
+    function ($scope, $rootScope, $location, contacts, contactById, ngTableParams) { 
 
-        $scope.loadAddresses = function() {
-            addresses.listAll(function (addresses) {
-                $scope.addresses = addresses;
+        $scope.loadContacts = function() {
+            contacts.listAll(function (contacts) {
+                $scope.contacts = contacts;
                 $scope.tableParams = new ngTableParams({
                     page: 1,            // show first page
                     count: 100           // count per page
                 }, {
-                    total: addresses.length, // length of data
+                    total: contacts.length, // length of data
                     getData: function($defer, params) {
-                        $defer.resolve(addresses.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        $defer.resolve(contacts.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                     }
                 });
             });            
         };
 
-        $scope.openAddress = function(address) {
-            $location.path('/addresses/' + address._id);
+        $scope.openContact = function(contact) {
+            $location.path('/contacts/' + contact._id);
         };
 
-        $scope.createAddress = function() {
-            $location.path('/addresses/create')
+        $scope.createContact = function() {
+            $location.path('/contacts/create')
         };
 
-        $scope.deleteAddress = function(address) {
-            var indexOfAddress = _.indexOf($scope.addresses, address);
-            addressById.delete({id: address._id}, function (callback) {
-                $scope.addresses.splice(indexOfAddress, 1);
+        $scope.deleteContacts = function(contact) {
+            var indexOfContact = _.indexOf($scope.contacts, contact);
+            contactById.delete({id: contact._id}, function (callback) {
+                $scope.contacts.splice(indexOfContact, 1);
                 $scope.tableParams.reload();
             });
         };
 
-        $scope.loadAddresses();
+        $scope.importGoogleContacts = '/api/google/import';
+        $scope.importGoogleContacts = '/api/google/export';
+
+        $scope.loadContacts();
     }
 ]);
 
-addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$routeParams', '$location', 'addresses', 'addressById',
-    function($scope, $rootScope, $routeParams, $location, addresses, addressById) {
+addressBookControllers.controller('contactViewCtrl', ['$scope', '$rootScope', '$routeParams', '$location', 'contacts', 'contactById',
+    function($scope, $rootScope, $routeParams, $location, contacts, contactById) {
 
-        $scope.selectedAddressId = $routeParams.id;
+        $scope.selectedContactId = $routeParams.id;
 
-        if($scope.selectedAddressId === 'create') {
+        if($scope.selectedContactId === 'create') {
             $scope.viewMode = 'create';
             $scope.editContainer = {};
         } else {
             $scope.viewMode = 'view';
-            $scope.address = addressById.find({id: $scope.selectedAddressId});            
+            $scope.contact = contactById.find({id: $scope.selectedContactId});            
         }
 
         $scope.showView = function() {
@@ -60,7 +63,7 @@ addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$
         };
 
         $scope.edit = function() {
-            $scope.editContainer = angular.copy($scope.address);
+            $scope.editContainer = angular.copy($scope.contact);
             $scope.viewMode = 'edit';
         };
 
@@ -76,25 +79,25 @@ addressBookControllers.controller('addressViewCtrl', ['$scope', '$rootScope', '$
             if(isMode('edit')) {
                 $scope.viewMode = 'view';
             } else {
-                $scope.returnToAddressList();
+                $scope.returnToContactList();
             }
         };
 
         function saveEdit() {
-            addressById.edit({id: $scope.selectedAddressId}, $scope.editContainer, function (callback) {
+            contactById.edit({id: $scope.selectedContactId}, $scope.editContainer, function (callback) {
                 $scope.viewMode = 'view';
-                $scope.address = $scope.editContainer;
+                $scope.contact = $scope.editContainer;
             });
         };
 
         function saveCreate() {
-            addresses.create($scope.editContainer, function (address) {
-                $location.path('addresses/' + address.id);
+            contacts.create($scope.editContainer, function (contact) {
+                $location.path('contacts/' + contact.id);
             });
         };
 
-        $scope.returnToAddressList = function() {
-            $location.path('/addresses');
+        $scope.returnToContactList = function() {
+            $location.path('/contacts');
         };
 
         function isMode(mode) {

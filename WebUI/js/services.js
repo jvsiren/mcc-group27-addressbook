@@ -1,7 +1,7 @@
 var services = angular.module('addressBookServices', ['ngResource']);
 
-services.factory('addresses', ['$resource', function($resource) {
-    return $resource('api/addresses', {}, {
+services.factory('contacts', ['$resource', function($resource) {
+    return $resource('api/contacts', {}, {
         listAll: {
             method: 'GET',
 	    	isArray: true
@@ -12,8 +12,8 @@ services.factory('addresses', ['$resource', function($resource) {
     });
 }]);
 
-services.factory('addressById', ['$resource', function($resource) {
-    return $resource('api/addresses/:id', {
+services.factory('contactById', ['$resource', function($resource) {
+    return $resource('api/contacts/:id', {
         id: '@id'
     }, {
         find: {

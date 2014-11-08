@@ -21,62 +21,16 @@ var app = angular.module('mccgroup27App', [
 app.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/addresses', {
-                templateUrl: 'partials/addressList.html',
-                controller: 'addressListCtrl'
+            .when('/contacts', {
+                templateUrl: 'partials/contactList.html',
+                controller: 'contactListCtrl'
             })
-            .when('/addresses/:id', {
-                templateUrl: 'partials/address.html',
-                controller: 'addressViewCtrl'
+            .when('/contacts/:id', {
+                templateUrl: 'partials/contact.html',
+                controller: 'contactViewCtrl'
             })
             .otherwise({
-                redirectTo: '/addresses'
+                redirectTo: '/contacts'
             });
     }
 ]);
-
-app.config(['$httpProvider', function($httpProvider) {
-    var interceptor = ['$rootScope', function($rootScope) {
-        function r(response) {
-
-            function notify(type, title, msg) {
-                $rootScope.showNotification(type, title, msg)
-            }
-
-            function getResponse() {
-                if (angular.isObject(response.data)) {
-                    return response.data.response || (response.data.responseObject ? response.data.responseObject.toString() : response.data.responseObject) || response.data.error || '';
-                } else if (typeof response.data === "string") {
-                    return response.data
-                }
-                return '';
-            }
-            switch (response.status) {
-                case 400:
-                    notify("warning", "Bad Request", getResponse());
-                    break;
-
-                case 500:
-                    var str = getResponse();
-                    notify("warning", "Server Error", "Something bad happened on the server" + (str ? ", a message was sent: <br>" + str : ''));
-                    break;
-
-                default:
-                    break;
-            }
-
-            // Always pass response unchanged
-            return response;
-        }
-        return {
-            response: function(a) {
-                return r(a)
-            },
-            responseError: function(a) {
-                return r(a)
-            }
-        };
-    }];
-    $httpProvider.interceptors.push(interceptor);
-
-}]);

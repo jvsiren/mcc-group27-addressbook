@@ -1,0 +1,17 @@
+<div class="col-md-12 main">
+	<div class="col-md-12">
+		<button class="btn btn-primary" ng-click="createContact()">Create contact</button>
+		<a class="btn btn-primary" ng-href="importGoogleContacts">Import from Google contacts</a>
+		<a class="btn btn-primary" ng-href="exportGoogleContacts">Export to Google contacts</a>
+	</div>
+	<table ng-table="tableParams" class="table">
+		<tr ng-repeat="contact in $data">
+			<td data-title="'First name'"><a ng-click="openContact(contact)">{{contact.firstName}}</a></td>
+			<td data-title="'Last name'"><a ng-click="openContact(contact)">{{contact.lastName}}</a></td>
+			<td data-title="'Email address'"><a ng-click="openContact(contact)">{{contact.email}}</a></td>
+			<td data-title="'Phone number'"><a ng-click="openContact(contact)">{{contact.phoneNumber}}</a></td>
+			<td><button class="btn btn-danger" ng-click="deleteContact(contact)">Delete</button></td>
+		</tr>
+	</table>
+</div>
+

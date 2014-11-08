@@ -7,7 +7,7 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 var GoogleContacts = require('google-contacts').GoogleContacts;
 var contacts;
 var dao = require('./dao');
-var collectionName = 'addresses';
+var collectionName = 'contacts';
 
 var url = oauth2Client.generateAuthUrl({
   access_type: 'offline', 
