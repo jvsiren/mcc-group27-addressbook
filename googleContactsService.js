@@ -19,6 +19,7 @@ var url = oauth2Client.generateAuthUrl({
 });
 
 exports.setAuthToken = function(req, res) {	
+	console.log("Set auth token");
 	console.log(req.params);
 	var code = req.params.code;
 	oauth2Client.getToken(code, function(err, tokens) {
@@ -30,7 +31,9 @@ exports.setAuthToken = function(req, res) {
 };
 
 exports.importContacts = function(req, res) {
+	console.log("Import contacts");
+	console.log(oauth2Client);
 	plus.people.get({userId: 'kukkakeppi@gmail.com', auth: oauth2Client}, function (err, profile) {
-	    console.log(profile);
+	    res.send(JSON.stringify(error: err, profile: profile));
 	});
 };
