@@ -1,7 +1,7 @@
 var dao = require('./dao');
 var collectionName = 'addresses';
 
-var sendResponse = function(result, res) {
+function sendResponse(result, res) {
   if(result) {
   	var resultString = result;
     if(typeof resultString !== "string") {
@@ -15,25 +15,25 @@ var sendResponse = function(result, res) {
 };
 
 exports.findAllAddresses = function(req, res) {
-  sendResponse(dao.findAll(collectionName, {}), res);
+  dao.findAll(collectionName, {}, function (result) { sendReponse(result, res); });
 };
 
 exports.findAddressById = function(req, res) {
-  sendResponse(dao.findById(collectionName, req.params.id), res);
+  dao.findById(collectionName, req.params.id, function (result) { sendReponse(result, res); });
 };
 
 exports.findAddressesByQuery = function(req, res) {
-  sendResponse(dao.findAll(collectionName, req.body), res);
+  dao.findAll(collectionName, req.body, function (result) { sendReponse(result, res); });
 };
 
 exports.createAddress = function (req, res) {
-  sendResponse(dao.create(collectionName, req.body), res);
+  dao.create(collectionName, req.body, function (result) { sendReponse(result, res); });
 };
 
 exports.modifyAddress = function (req, res) {
-  sendResponse(dao.update(collectionName, req.params.id, req.body), res);
+  dao.update(collectionName, req.params.id, req.body, function (result) { sendReponse(result, res); });
 };
 
 exports.deleteAddress = function (req, res) {
-  sendResponse(dao.delete(collectionName, req.params.id), res);
+  dao.delete(collectionName, req.params.id, function (result) { sendReponse(result, res); });
 };
