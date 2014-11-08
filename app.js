@@ -20,9 +20,8 @@ app.post('/api/contacts/:id', contactService.modifyContact);
 app.delete('/api/contacts/:id', contactService.deleteContact);
 
 // Google contacts requests
-app.get('/api/google/import/oauth2callback', googleContactsService.oauthCallbackImport);
+app.get('/api/google/oauth2callback', googleContactsService.oauthCallback);
 app.get('/api/google/import', googleContactsService.requestImportContacts);
-app.get('/api/google/export/oauth2callback', googleContactsService.oauthCallbackExport);
 app.get('/api/google/export', googleContactsService.requestExportContacts);
 
 var port = 8080;

@@ -2,53 +2,49 @@ var googleapis = require('googleapis');
 var OAuth2Client = googleapis.auth.OAuth2;
 var CLIENT_ID = '709847374314-ovdqsjq54bj4llbpr219rrg55dt1alop.apps.googleusercontent.com';
 var CLIENT_SECRET = '06KY_8EFUBsQvg_KceLvdI4T';
-var IMPORT_REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/import/oauth2callback';
-var EXPORT_REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/export/oauth2callback';
-var oauth2ClientImport = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, IMPORT_REDIRECT_URL);
-var oauth2ClientExport = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, EXPORT_REDIRECT_URL);
+var REDIRECT_URL = 'http://mccgroup27.ddns.net:8080/api/google/oauth2callback';
+var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 var GoogleContacts = require('google-contacts').GoogleContacts;
-var contacts;
+var contacts, currentRequest, accessToken;
 var dao = require('./dao');
 var collectionName = 'contacts';
 var request = require('request');
 var contactXml = require('./contactXML');
 
-var importUrl = createUrl(oauth2ClientImport);
-var exportUrl = createUrl(oauth2ClientExport);
-
-function createUrl(oauthClient) {
-  return oauthClient.generateAuthUrl({
+var url = oauth2Client.generateAuthUrl({
     access_type: 'offline', 
     scope: 'https://www.googleapis.com/auth/contacts'
-  });
-};
+});
 
 exports.requestImportContacts = function(req, res) {
-		res.redirect(importUrl);	
+  currentRequest = 'import';
+	res.redirect(url);	
 };
 
 exports.requestExportContacts = function(req, res) {
-  res.redirect(exportUrl);
+  currentRequest = 'export';
+  res.redirect(url);
 }
 
-exports.oauthCallbackImport = function(req, res) {
-	setAccessToken(oauth2ClientImport, req.query.code, function() { 
-		importContacts(res); 
+exports.oauthCallback = function(req, res) {
+	setAccessToken(req.query.code, function() { 
+    if(currentRequest === 'export') {
+      exportContacts(res);
+    }
+    if(currentRequest === 'import') {
+      importContacts(res); 
+    }		
 	});
 };
 
-exports.oauthCallbackExport = function(req, res) {
-  setAccessToken(oauth2ClientExport, req.query.code, function() { 
-    exportContacts(res); 
-  });
-};
-
-function setAccessToken(oAuthClient, authorizationCode, callback) {
-    oAuthClient.getToken(authorizationCode, function (err, tokens) {
+function setAccessToken(authorizationCode, callback) {
+    oauth2Client.getToken(authorizationCode, function (err, tokens) {
       // Now tokens contains an access_token and an optional refresh_token. Save them.
       if(!err) {
-        oAuthClient.setCredentials(tokens);
-    		contacts = new GoogleContacts({token: tokens.access_token});
+        oauth2Client.setCredentials(tokens);
+        accessToken = tokens.access_token;
+        console.log(accessToken);
+    		contacts = new GoogleContacts({token: accessToken});
     		callback();
       }
     });
@@ -105,7 +101,8 @@ function sendContactToGoogle(contact) {
     url: 'https://www.google.com/m8/feeds/contacts/default/full',
     body: postBody,
     headers: {
-      'Authorization': 'OAuth ya29.uAB46yDuo46pnuS3tzaW1iuin33MidKY1S_FZt3npLSDRClh6hGzybtnCNGuLD4UJ8CCQm_AO9kpTw'
+      //'Authorization': 'OAuth ya29.uAB46yDuo46pnuS3tzaW1iuin33MidKY1S_FZt3npLSDRClh6hGzybtnCNGuLD4UJ8CCQm_AO9kpTw',
+      'Authorization': accessToken,
       'GData-Version': '3.0'
     }
   };
