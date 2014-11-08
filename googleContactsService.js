@@ -15,12 +15,8 @@ var url = oauth2Client.generateAuthUrl({
 });
 
 exports.requestImportContacts = function(req, res) {
-	if(contacts) {
-		importContacts(res);
-	} else {
-		console.log(url);
-		res.redirect(url);		
-	}
+    console.log(url);
+		res.redirect(url);	
 };
 
 exports.oauthCallback = function(req, res) {
@@ -34,8 +30,8 @@ function setAccessToken(authorizationCode, callback) {
       // Now tokens contains an access_token and an optional refresh_token. Save them.
       if(!err) {
         oauth2Client.setCredentials(tokens);
-		contacts = new GoogleContacts({token: tokens.access_token});
-		callback();
+    		contacts = new GoogleContacts({token: tokens.access_token});
+    		callback();
       }
     });
 }

@@ -1,15 +1,9 @@
 <div class="col-md-12 main">
 	<form name="contactForm">
-	    <div class="col-sm-2">First name</div>
+	    <div class="col-sm-2">Name</div>
 	    <div class="col-sm-10">
-	        <input name="firstName" class="form-control short-input-field" type="text" ng-model="editContainer.firstName" data-required />
-	        <span ng-show="contactForm.firstName.$error.required" class="validation-error">Required</span>
-	    </div>
-
-	    <div class="col-sm-2">Last name</div>
-	    <div class="col-sm-10">
-	        <input name="lastName" class="form-control short-input-field" type="text" ng-model="editContainer.lastName" data-required />
-	        <span ng-show="contactForm.lastName.$error.required" class="validation-error">Required</span>
+	        <input name="name" class="form-control short-input-field" type="text" ng-model="editContainer.name" data-required />
+	        <span ng-show="contactForm.name.$error.required" class="validation-error">Required</span>
 	    </div>
 
 	    <div class="col-sm-2">Email address</div>
