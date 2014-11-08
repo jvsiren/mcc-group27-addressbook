@@ -11,7 +11,9 @@
        "errorhandler": "*",
        "googleapis": "*",
        "google-contacts": "*",
-       "request": "*"
+       "request": "*",
+       "xml": "*",
+       "underscore": "*"
     },
     "scripts": {
        "start": "node app.js"

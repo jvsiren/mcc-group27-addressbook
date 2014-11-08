@@ -87,15 +87,27 @@ function redirectToContactList(res) {
 };
 
 function exportContacts(res) {
-  dao.findAll(collectionName, {}, function (allContacts) {
-    for(var i = 0; i < allContacts.length; i++) {
-      sendContactToGoogle(allContacts[i]);
-    }
+  contacts.getContacts(function (error, allGoogleContacts) {
+    dao.findAll(collectionName, {}, function (allContacts) {
+      var contacts = getContactsThatDontExistInGoogle(allContacts, allGoogleContacts);
+      for(var i = 0; i < contacts.length; i++) {
+        createContactInGoogleContacts(contacts[i]);
+      }
+    });
+    redirectToContactList(res);
   });
-  redirectToContactList(res);
 };
 
-function sendContactToGoogle(contact) {
+function getContactsThatDontExistInGoogle(contats, googleContacts) {
+  _.filter(contacts, function (contact) {
+      var existingGoogleContact = _.find(googleContacts, function (googleContact) {
+        googleContact.email === contact.email;
+      });
+      return existingGoogleContact == undefined;
+  });
+}
+
+function createContactInGoogleContacts(contact) {
   var postBody = contactXml.generateXML(contact);
   var requestOptions = {
     url: 'https://www.google.com/m8/feeds/contacts/default/full',
@@ -107,9 +119,6 @@ function sendContactToGoogle(contact) {
     }
   };
   request.post(requestOptions, function (error, response, body) {
-    //console.log("Error: " + error);
     console.log(JSON.stringify(response));
-    //console.log("Body: " + body);
   });
-
 };
