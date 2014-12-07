@@ -3,12 +3,11 @@ var collectionName = 'contacts';
 
 function sendResponse(result, res) {
   if(result) {
-  	var resultString = result;
     if(typeof resultString !== "string") {
-      resultString = JSON.stringify(result);
-    }
-    res.writeHead(200, {"Content-Type": "application/json"});
-    res.send(resultString);    
+      res.json(result);
+    } else {
+      res.send(result);   
+    }     
   } 
   else {
     res.sendStatus(400);    
