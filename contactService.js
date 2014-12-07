@@ -7,6 +7,7 @@ function sendResponse(result, res) {
     if(typeof resultString !== "string") {
       resultString = JSON.stringify(result);
     }
+    res.writeHead(200, {"Content-Type": "application/json"});
     res.send(resultString);    
   } 
   else {
